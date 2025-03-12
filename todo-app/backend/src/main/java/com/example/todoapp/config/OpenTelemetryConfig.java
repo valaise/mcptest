@@ -2,6 +2,7 @@ package com.example.todoapp.config;
 
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
@@ -25,8 +26,8 @@ public class OpenTelemetryConfig {
     public OpenTelemetry openTelemetry() {
         Resource resource = Resource.getDefault()
                 .merge(Resource.create(Attributes.of(
-                        "service.name", serviceName,
-                        "service.version", "1.0.0"
+                        AttributeKey.stringKey("service.name"), serviceName,
+                        AttributeKey.stringKey("service.version"), "1.0.0"
                 )));
 
         OtlpGrpcSpanExporter spanExporter = OtlpGrpcSpanExporter.builder()
