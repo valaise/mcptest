@@ -37,14 +37,15 @@
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "allowedCommonJsDependencies": [
-              "@opentelemetry/instrumentation"
+              "@opentelemetry/instrumentation",
+              "path-browserify",
+              "os-browserify/browser",
+              "crypto-browserify",
+              "stream-browserify",
+              "buffer"
             ],
             "webWorkerTsConfig": "tsconfig.worker.json",
-            "browser": {
-              "fs": false,
-              "path": false,
-              "os": false
-            }
+            "extraWebpackConfig": "extra-webpack.config.js"
           },
           "configurations": {
             "production": {
