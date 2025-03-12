@@ -1,4 +1,4 @@
-FROM maven:3.9.5-eclipse-temurin-17-alpine AS build
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Copy the POM file
