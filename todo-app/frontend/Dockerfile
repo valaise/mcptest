@@ -11,12 +11,17 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
+# Erstelle eine leere Worker-Datei, um den Fehler zu vermeiden
+RUN mkdir -p src/app/workers
+RUN touch src/app/workers/dummy.worker.ts
+RUN echo "// Dummy worker file" > src/app/workers/dummy.worker.ts
+
 # Install additional dependencies
 RUN npm install -g @angular/cli
 RUN npm install path-browserify os-browserify crypto-browserify stream-browserify buffer process
 
 # Build the application
-RUN ng build
+RUN ng build --configuration production
 
 # Production stage
 FROM nginx:alpine

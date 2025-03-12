@@ -39,7 +39,12 @@
             "allowedCommonJsDependencies": [
               "@opentelemetry/instrumentation"
             ],
-            "webWorkerTsConfig": "tsconfig.worker.json"
+            "webWorkerTsConfig": "tsconfig.worker.json",
+            "browser": {
+              "fs": false,
+              "path": false,
+              "os": false
+            }
           },
           "configurations": {
             "production": {
