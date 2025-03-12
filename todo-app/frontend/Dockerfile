@@ -16,6 +16,9 @@ RUN mkdir -p src/app/workers
 RUN touch src/app/workers/dummy.worker.ts
 RUN echo "// Dummy worker file" > src/app/workers/dummy.worker.ts
 
+# Deaktiviere OpenTelemetry temporär
+RUN sed -i 's/initTracing();//g' src/main.ts
+
 # Install additional dependencies
 RUN npm install -g @angular/cli
 RUN npm install path-browserify os-browserify crypto-browserify stream-browserify buffer process

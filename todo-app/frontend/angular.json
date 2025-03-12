@@ -44,8 +44,7 @@
               "stream-browserify",
               "buffer"
             ],
-            "webWorkerTsConfig": "tsconfig.worker.json",
-            "extraWebpackConfig": "extra-webpack.config.js"
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
