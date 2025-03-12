@@ -1,0 +1,77 @@
+<div class="container mt-5">
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="text-center">Todo-Liste</h1>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn" [class.btn-primary]="filterStatus === 'all'" 
+                  [class.btn-outline-primary]="filterStatus !== 'all'" 
+                  (click)="applyFilter('all')">
+            Alle
+          </button>
+          <button type="button" class="btn" [class.btn-primary]="filterStatus === 'active'" 
+                  [class.btn-outline-primary]="filterStatus !== 'active'" 
+                  (click)="applyFilter('active')">
+            Aktiv
+          </button>
+          <button type="button" class="btn" [class.btn-primary]="filterStatus === 'completed'" 
+                  [class.btn-outline-primary]="filterStatus !== 'completed'" 
+                  (click)="applyFilter('completed')">
+            Erledigt
+          </button>
+        </div>
+        <button class="btn btn-success" routerLink="/add">
+          <i class="bi bi-plus-circle me-2"></i>Neues Todo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Laden...</span>
+    </div>
+    <p class="mt-2">Todos werden geladen...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && todos.length === 0" class="text-center my-5">
+    <i class="bi bi-inbox display-1 text-muted"></i>
+    <p class="lead mt-3">Keine Todos gefunden</p>
+    <p class="text-muted">Erstellen Sie ein neues Todo, um loszulegen</p>
+  </div>
+
+  <div class="row" *ngIf="!loading && todos.length > 0">
+    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let todo of todos">
+      <div class="card h-100 shadow-sm todo-card" [class.border-success]="todo.completed">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="card-title" [class.completed]="todo.completed">{{ todo.title }}</h5>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" 
+                     [checked]="todo.completed" 
+                     (change)="toggleStatus(todo)">
+            </div>
+          </div>
+          <p class="card-text" [class.completed]="todo.completed">{{ todo.description }}</p>
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <small class="text-muted">
+              Erstellt: {{ todo.createdAt | date:'short' }}
+            </small>
+            <button class="btn btn-sm btn-outline-danger btn-action" (click)="deleteTodo(todo.id!)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
