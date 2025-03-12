@@ -2,7 +2,6 @@ package com.example.todoapp.service;
 
 import com.example.todoapp.model.Todo;
 import com.example.todoapp.repository.TodoRepository;
-import io.opentelemetry.instrumentation.annotations.WithSpan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,29 +15,24 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
 
-    @WithSpan
     public List<Todo> getAllTodos() {
         return todoRepository.findAll();
     }
 
-    @WithSpan
     public Optional<Todo> getTodoById(Long id) {
         return todoRepository.findById(id);
     }
 
-    @WithSpan
     public List<Todo> getTodosByCompleted(boolean completed) {
         return todoRepository.findByCompleted(completed);
     }
 
-    @WithSpan
     public Todo createTodo(Todo todo) {
         todo.setCreatedAt(LocalDateTime.now());
         todo.setUpdatedAt(LocalDateTime.now());
         return todoRepository.save(todo);
     }
 
-    @WithSpan
     public Optional<Todo> updateTodo(Long id, Todo todoDetails) {
         return todoRepository.findById(id).map(existingTodo -> {
             existingTodo.setTitle(todoDetails.getTitle());
@@ -49,7 +43,6 @@ public class TodoService {
         });
     }
 
-    @WithSpan
     public boolean deleteTodo(Long id) {
         return todoRepository.findById(id).map(todo -> {
             todoRepository.delete(todo);
