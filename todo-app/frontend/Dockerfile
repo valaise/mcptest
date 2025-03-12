@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-alpine AS build
+FROM node:20-alpine as build
 WORKDIR /app
 
 # Copy package.json and package-lock.json
@@ -11,8 +11,12 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
+# Install additional dependencies
+RUN npm install -g @angular/cli
+RUN npm install path-browserify os-browserify crypto-browserify stream-browserify buffer process
+
 # Build the application
-RUN npm run build
+RUN ng build
 
 # Production stage
 FROM nginx:alpine
