@@ -84,6 +84,7 @@ services:
     image: grafana/tempo:latest
     container_name: todo-tempo
     command: ["-config.file=/etc/tempo.yaml"]
+    user: root
     volumes:
       - ./tempo/tempo.yaml:/etc/tempo.yaml
       - tempo-data:/tmp/tempo
